@@ -3,8 +3,6 @@
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
 
-'LA Valet'/[Ll]ibrary/
-'LA Valet'/[Ll]ogs/
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
