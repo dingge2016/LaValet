@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Exit
+  - A car
+  - Control Bar
   layers:
   - Default
   - TransparentFX

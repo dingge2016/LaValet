@@ -52,12 +52,12 @@ public class carCollision : MonoBehaviour
         if (contact.normal[2] < 0){
           maxZ = thisCollider.transform.position[2];
         }
-        // Debug.Log(minX);
-        // Debug.Log(maxX);
-        // Debug.Log(minZ);
-        // Debug.Log(maxZ);
-        //Debug.Log(thisCollider.transform.position[2]);
-      }
+            Debug.Log(minX);
+             Debug.Log(maxX);
+            Debug.Log(minZ);
+             Debug.Log(maxZ);
+            Debug.Log(thisCollider.transform.position[2]);
+        }
     }
 
     void OnCollisionExit(Collision collision)
