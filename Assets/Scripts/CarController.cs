@@ -1,6 +1,7 @@
+using System;
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine; 
+using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
@@ -24,14 +25,18 @@ public class CarController : MonoBehaviour
     {
         float disX = Input.mousePosition.x - posX;
         float disY = Input.mousePosition.y - posY;
-        float disZ = Input.mousePosition.z - posZ; 
+        float disZ = Input.mousePosition.z - posZ;
         Vector3 lastPos = Camera.main.ScreenToWorldPoint(new Vector3(disX, disY, disZ));
 
-        // Debug.Log("X:" + lastPos.x + "Y:" + lastPos.y + " Z:" + lastPos.z);
+        lastPos.x = Math.Max(lastPos.x, carCollision.minX);
+        lastPos.x = Math.Min(lastPos.x, carCollision.maxX);
+        lastPos.z = Math.Max(lastPos.z, carCollision.minZ);
+        lastPos.z = Math.Min(lastPos.z, carCollision.maxZ);
+        //Debug.Log("X:" + lastPos.x + "Y:" + lastPos.y + " Z:" + lastPos.z);
         transform.position = new Vector3(lastPos.x, 0.7f, lastPos.z);
     }
 
-  
+
 
 
 }
