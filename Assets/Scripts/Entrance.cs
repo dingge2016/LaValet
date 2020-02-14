@@ -4,34 +4,27 @@ using UnityEngine;
 
 public class Entrance : MonoBehaviour
 {
-	//time between each car
 	public float spawnTime = 4f;
     public GameObject car;
     public GameObject wall;
     public GameObject lot;
-    public bool condition;
-    public float start;
-    public float end;
-    public int nextNameNumber=0;
-    public int objNameNumber;
-    public string name;
-    public Vector3 lastPos;
-    public Vector3 offset;
+    private float end;
+    private int nextNameNumber=0;
+    private int objNameNumber;
+    private string name;
+    private Vector3 lastPos;
+    private Vector3 offset;
     private Vector3 entrance;
     private Vector3 boundary;
     public GameObject longCar;
-    public bool carCreated;
-    //keep track of location of car
-    public float carLocation;
-    public int count;
-    //stores the list of newly created gameobjects
+    private bool carCreated;
+    private float carLocation;
+    private int count;
     public List<GameObject> theCars;
     public List<Vector3> positions;
-    //public Collider2D entranceCollider;
-    //public Collider2D carCollider;
-    public bool breakFlag;
-    public int currentNumCars;
-    public Vector3 temp;
+    private bool breakFlag;
+    private int currentNumCars;
+    private Vector3 temp;
 
     // Start is called before the first frame update
     void Start()
@@ -39,17 +32,17 @@ public class Entrance : MonoBehaviour
         //finds location of the entrance
     	wall = GameObject.Find("Westwall");
     	entrance = new Vector3(wall.transform.position.x, wall.transform.position.y, wall.transform.position.z);
-        start = entrance.x;
-        carLocation = start;
+        carLocation = entrance.x;
+
         //finds location of the boundary of the parking lot 
         lot = GameObject.Find("EntranceLoc");
         boundary = new Vector3(lot.transform.position.x, lot.transform.position.y, lot.transform.position.z);
         end = boundary.x;
-        //initialize a name for the newly created car object
+
+        //initialize parameters for the newly created car object
         name = "longCar";
         objNameNumber=0;
         theCars = new List<GameObject>();
-        //entranceCollider = lot.GetComponent<Collider2D>();
     	StartCoroutine(carWave());
 
     }
@@ -61,8 +54,8 @@ public class Entrance : MonoBehaviour
         newCar.AddComponent<CarController>();
         newCar.name = "longCar" + nextNameNumber;
     	newCar.transform.position = new Vector3(x, entrance.y, entrance.z);
+        //keeps track of car locations
         positions.Add(newCar.transform.position);
-        Debug.Log("car position " + newCar.transform.position.ToString());
     }
 
     //continuously spawning new car objects
@@ -71,9 +64,8 @@ public class Entrance : MonoBehaviour
     	while(theCars.Count<10 || breakFlag==false){
             //wait 10 seconds before generating another car
             yield return new WaitForSeconds(spawnTime);
-            //create car and attach a collider
             createCar(carLocation);
-            //carCollider = theCars[nextNameNumber].AddComponent<Collider2D>();
+            carCreated = true;
             nextNameNumber++;
             //if car touches entrance boundary, stop generating cars
             if(carLocation<end){
@@ -81,11 +73,10 @@ public class Entrance : MonoBehaviour
                 break;
             }
             carLocation-=2.5f;
-            carCreated = true;
     	}
     }
 
-    //check every frame if a car has moved, if so shift cars
+    //check on every frame if a car has moved, if so shift cars
     void Update(){
         //after the first car object is created, check for its movement
         if(carCreated==true && objNameNumber<10){
@@ -93,8 +84,8 @@ public class Entrance : MonoBehaviour
             lastPos = positions[objNameNumber];
             //new position(if moved)
             offset = theCars[objNameNumber].transform.position - lastPos;
+            //shift cars that exist
             if(offset.x>0.0f){
-                //count current cars in list
                 currentNumCars = theCars.Count;
                 objNameNumber++;
                 count = objNameNumber;
