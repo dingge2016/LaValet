@@ -52,6 +52,7 @@ public class Entrance : MonoBehaviour
     	GameObject newCar = Instantiate(car) as GameObject;
         theCars.Add(newCar);
         newCar.AddComponent<CarController>();
+        newCar.AddComponent<ClampCarTimer>();
         newCar.name = "longCar" + nextNameNumber;
     	newCar.transform.position = new Vector3(x, entrance.y, entrance.z);
         //keeps track of car locations
